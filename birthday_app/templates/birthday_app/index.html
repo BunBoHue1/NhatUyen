@@ -1,0 +1,86 @@
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Envelope + Letter (Open/Close on Click)</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="envelope-wrapper" onclick="showButton()">
+            <div class="envelope">
+                <div class="letter">
+                    <div class="text">
+                        <strong>Dear Person.</strong>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                            Numquam labore omnis minus maiores laboriosam, facere in beatae esse. 
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="heart"></div>
+        </div>
+    </div>
+    <div class="cf-wrapper">
+            <button id="coffee" class="cf" onclick="showAlert()">
+                Đi sữa đậu khum thì click đây nè
+            </button>
+    </div>
+    <script>
+        const envelope = document.querySelector('.envelope-wrapper');
+        envelope.addEventListener('click', () => {
+            envelope.classList.toggle('flap');
+        });
+    </script>
+    <script>
+        // Xử lý sự kiện khi click vào button
+        function showAlert() {
+            alert ("Okey, đợi tẹo nhaaa")
+        };
+
+        function showButton(){
+            document.getElementsByClassName('cf')[0].style.display = 'block';
+        }
+    </script>
+    <script>
+        document.getElementById("coffee").addEventListener("click", function() {
+            fetch('/notify-button-click/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')  // Lấy CSRF token từ cookie
+                },
+                body: JSON.stringify({
+                    message: 'Người dùng đã bấm nút!'
+                })
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Đã gửi thông báo thành công!');
+                } else {
+                    console.error('Có lỗi xảy ra!');
+                }
+            });
+        });
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>
