@@ -29,9 +29,9 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'birthday_app/static')]
 SECRET_KEY = 'django-insecure-d$^)7v=1&oa26)xa)%!lg_dbs#r*q@091jp+ivpad9y$ig@3n!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*', 'Kiennguyen.com']
+ALLOWED_HOSTS = ['*', 'Kiennguyen.com', 'nhatuyen.onrender.com']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
