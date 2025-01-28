@@ -118,7 +118,7 @@
   background-color: var(--bg-color);
   border: none;
   display: flex;
-  position: absolute;
+  position: relative;
   align-items: center;
   justify-content: center;
   top: 500px;
